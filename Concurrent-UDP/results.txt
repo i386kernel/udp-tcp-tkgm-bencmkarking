@@ -1,0 +1,60 @@
+
+==== Nodes ====
+root@photon-machine [ /home/tkgm-benckmark/udp-benchmark ]# k get nodes
+NAME                                    STATUS   ROLES                  AGE    VERSION
+tkg14-vcf-wld01-control-plane-78kcc     Ready    control-plane,master   155d   v1.21.2+vmware.1
+tkg14-vcf-wld01-control-plane-7zs59     Ready    control-plane,master   155d   v1.21.2+vmware.1
+tkg14-vcf-wld01-control-plane-d5n82     Ready    control-plane,master   155d   v1.21.2+vmware.1
+tkg14-vcf-wld01-md-0-865ff56bd8-6ncdq   Ready    <none>                 155d   v1.21.2+vmware.1
+tkg14-vcf-wld01-md-0-865ff56bd8-h95zw   Ready    <none>                 155d   v1.21.2+vmware.1
+tkg14-vcf-wld01-md-0-865ff56bd8-kdbkr   Ready    <none>                 155d   v1.21.2+vmware.1
+
+
+===== Client and Server are running on different nodes =====
+root@photon-machine [ /home/tkgm-benckmark/udp-benchmark ]# k get pods -n udp-client -o wide
+NAME                               READY   STATUS    RESTARTS   AGE     IP             NODE                                    NOMINATED NODE   READINESS GATES
+conn-udp-client-7d64498979-xfkx2   1/1     Running   0          4m57s   100.96.2.125   tkg14-vcf-wld01-md-0-865ff56bd8-h95zw   <none>           <none>
+root@photon-machine [ /home/tkgm-benckmark/udp-benchmark ]# k get pods -n udp-server -o wide
+NAME                               READY   STATUS    RESTARTS   AGE   IP             NODE                                    NOMINATED NODE   READINESS GATES
+conn-udp-server-59888cd865-8j7pg   1/1     Running   0          47m   100.96.3.249   tkg14-vcf-wld01-md-0-865ff56bd8-kdbkr   <none>           <none>
+
+======== Results ========
+
+===== Test 1 =====
+root@conn-udp-client-7d64498979-xfkx2:/usr/src/app#  ./udpclient -nc=8 -rc=125000 -ap="conn-udp-server.udp-server.svc.cluster.local:10001"
+Number of clients/goroutines establishing connection with UDP Server 8
+
+
+Number of Requests per client 125000
+
+Total time in microseconds would be:  5034000
+Total Number of Bytes sent as Payload: 263
+Total Number of requests 1000000
+Total Time took to send 1000000 requests would be 5034 milliseconds
+It takes 5.034000 microseconds per request
+
+
+===== Test 2 =====
+root@conn-udp-client-7d64498979-xfkx2:/usr/src/app#  ./udpclient -nc=8 -rc=200000 -ap="conn-udp-server.udp-server.svc.cluster.local:10001"
+Number of clients/goroutines establishing connection with UDP Server 8
+
+Number of Requests per client 200000
+
+Total time in microseconds would be:  8010000
+Total Number of Bytes sent as Payload: 263
+Total Number of requests 1600000
+Total Time took to send 1600000 requests would be 8010 milliseconds
+It takes 5.006250 microseconds per request
+
+
+==== Running Single Client/Server ========
+
+## Single Client
+./singleudpclient -nm=1000000 -ap="single-udp-server.single-udp-server.svc.cluster.local:10001"
+
+## Single Server
+UDP client : Hello UDP server!999941
+UDP client : Hello UDP server!999942
+UDP client : Hello UDP server!999943
+UDP client : Hello UDP server!999944
+UDP client : Hello UDP server!999945

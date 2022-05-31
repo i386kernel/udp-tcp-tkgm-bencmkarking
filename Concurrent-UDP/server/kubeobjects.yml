@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conn-udp-server
+  labels:
+    app: conn-udp-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: conn-udp-server
+      labels:
+        app: conn-udp-server
+    spec:
+      containers:
+        - name: conn-udp-server
+          image: lnanjangud653/udpserver:3.0
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+#      imagePullSecrets:
+#        - name: vmwaredockersecret
+  selector:
+    matchLabels:
+      app: conn-udp-server
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: conn-udp-server
+spec:
+  selector:
+    app: conn-udp-server
+  ports:
+    - port: 10001
+      protocol: UDP
+      targetPort: 10001
+  type: LoadBalancer

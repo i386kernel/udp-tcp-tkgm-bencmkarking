@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multiport-udp-client
+  labels:
+    app: multiport-udp-client
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: multiport-udp-client
+      labels:
+        app: multiport-udp-client
+    spec:
+      containers:
+        - name: multiport-udp-client
+          image: lnanjangud653/multiportudpclient:multiportubuclient-1.0
+          command: ["/bin/sleep", "3650d"]
+          imagePullPolicy: Always
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: multiport-udp-client
+---

@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multiport-udp-server
+  labels:
+    app: multiport-udp-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: multiport-udp-server
+      labels:
+        app: multiport-udp-server
+    spec:
+      containers:
+        - name: multiport-udp-server
+          image: lnanjangud653/multiportudpserver:multiportubuser-1.0
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: multiport-udp-server
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: multiport-udp-server
+spec:
+  selector:
+    app: multiport-udp-server
+  ports:
+    - port: 10001
+      name: port1
+      protocol: UDP
+      targetPort: 10001
+    - port: 10002
+      name: port2
+      protocol: UDP
+      targetPort: 10002
+    - port: 10003
+      name: port3
+      protocol: UDP
+      targetPort: 10003
+    - port: 10004
+      name: port4
+      protocol: UDP
+      targetPort: 10004
+    - port: 10005
+      name: port5
+      protocol: UDP
+      targetPort: 10005
+    - port: 10006
+      name: port6
+      protocol: UDP
+      targetPort: 10006
+    - port: 10007
+      name: port7
+      protocol: UDP
+      targetPort: 10007
+    - port: 10008
+      name: port8
+      protocol: UDP
+      targetPort: 10008
+    - port: 10009
+      name: port9
+      protocol: UDP
+      targetPort: 10009
+    - port: 10010
+      name: port10
+      protocol: UDP
+      targetPort: 10010
+  type: LoadBalancer

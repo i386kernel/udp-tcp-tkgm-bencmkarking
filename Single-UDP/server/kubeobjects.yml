@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: single-udp-server
+  labels:
+    app: single-udp-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: single-udp-server
+      labels:
+        app: single-udp-server
+    spec:
+      containers:
+        - name: single-udp-server
+          image: lnanjangud653/singleudpserver:1.0
+          command: ["/bin/sleep", "3650d"]
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 7000
+              protocol: UDP
+      restartPolicy: Always
+#      imagePullSecrets:
+#        - name: vmwaredockersecret
+  selector:
+    matchLabels:
+      app: single-udp-server
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: single-udp-server
+spec:
+  selector:
+    app: single-udp-server
+  ports:
+    - port: 7000
+      protocol: UDP
+      targetPort: 7000
+  type: LoadBalancer

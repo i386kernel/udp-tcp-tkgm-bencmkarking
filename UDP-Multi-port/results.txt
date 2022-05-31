@@ -1,0 +1,106 @@
+>> k get all
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/multiport-udp-server-6d79ff9867-lc4hv   1/1     Running   0          2m20s
+
+NAME                           TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                                                                                                                                                           AGE
+service/multiport-udp-server   LoadBalancer   100.70.150.82   172.16.9.79   10001:30256/UDP,10002:30203/UDP,10003:30729/UDP,10004:32590/UDP,10005:30673/UDP,10006:30756/UDP,10007:30395/UDP,10008:30382/UDP,10009:31718/UDP,10010:32353/UDP   4d21h
+
+NAME                                   READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/multiport-udp-server   1/1     1            1           2m16s
+
+NAME                                              DESIRED   CURRENT   READY   AGE
+replicaset.apps/multiport-udp-server-6d79ff9867   1         1         1       2m20s
+>>
+
+Server Replicas: 15
+Server: CPU: 250*15 Pods = 3750 milli cores = 3.7vCPU's
+Memory: 100 MB * 15 = 1.5 GB
+Client Replicas: 50
+
+Created by Wireshark 3.6.5 (v3.6.5-0-g21f79ddbefbd)
+
+File
+
+Name:
+C:\Users\hadmin\Downloads\udppcap.pcap
+Length:
+320 MB
+Hash (SHA256):
+1866204bd07f82d07c3f1e8cf29214f8a462920d8dae33bb3f00eb265dae6a9c
+Hash (RIPEMD160):
+e1a08c2d478accac460bd69cca78b82939bdfd15
+Hash (SHA1):
+b26dd925ae3983594db62ac37e33a0f2eb104255
+Format:
+Wireshark/tcpdump/... - pcap
+Encapsulation:
+Linux cooked-mode capture v1
+Snapshot length:
+262144
+
+Time
+
+First packet:
+2022-05-21 15:09:26
+Last packet:
+2022-05-21 15:09:47
+Elapsed:
+00:00:20
+
+Capture
+
+Hardware:
+Unknown
+OS:
+Unknown
+Application:
+Unknown
+
+Interfaces
+
+Interface
+Dropped packets
+Capture filter
+Link type
+Packet size limit (snaplen)
+Unknown
+Unknown
+Unknown
+Linux cooked-mode capture v1
+262144 bytes
+
+Statistics
+
+Measurement
+Captured
+Displayed
+Marked
+Packets
+999548
+999548 (100.0%)
+—
+Time span, s
+20.941
+20.941
+—
+Average pps
+47732.6
+47732.6
+—
+Average packet size, B
+305
+305
+—
+Bytes
+304674445
+304674445 (100.0%)
+0
+Average bytes/s
+14 M
+14 M
+—
+Average bits/s
+116 M
+116 M
+—
+

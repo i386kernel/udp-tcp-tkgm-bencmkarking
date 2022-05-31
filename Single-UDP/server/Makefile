@@ -1,0 +1,10 @@
+build:
+	GOOS=linux GOARCH=386 go build -o singleudpserver .
+	chmod 777 singleudpserver
+
+imgbuild:
+	docker build -t lnanjangud653/singleudpserver:"${IMG_VER}" .
+
+imgpush:
+	docker push lnanjangud653/singleudpserver:${IMG_VER}
+
